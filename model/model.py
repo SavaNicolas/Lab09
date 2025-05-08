@@ -29,19 +29,28 @@ class Model:
         """ aggiungo gli archi direttamente da flights in base a nodo partenza e nodo arrivo,
         in flights son sicuro che ho già almeno un 1 volo che collega glia aereoporti
         """
-        all_flights= DAO.get_flights()
+        all_flights= DAO.get_flights(distance)
         for flight in all_flights:
             u= self.idMapAereoporti[flight.ORIGIN_AIRPORT_ID]
             v= self.idMapAereoporti[flight.DESTINATION_AIRPORT_ID]
             #calcolo peso arco che deve essere una media della somma delle distanze tra A-->B e B-->A
             peso= self.calcola_peso(flight.ORIGIN_AIRPORT_ID,flight.DESTINATION_AIRPORT_ID)
+
             if peso>=distance:
+                print("aggiunto")
                 self._grafo.add_edge(u,v, weight=peso)
 
 
 
     def getNumNodi(self):
         return len(self._grafo.nodes())
+
+    def getNumNodiCoinvolti(self):
+        count = 0
+        for nodo in self._grafo.nodes():
+            if self._grafo.degree[nodo] > 0:
+                count += 1
+        return count
 
     def getNumArchi(self):
         return len(self._grafo.edges())

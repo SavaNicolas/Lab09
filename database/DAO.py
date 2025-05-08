@@ -22,14 +22,14 @@ class DAO():
         return result
 
     @staticmethod
-    def get_flights():
+    def get_flights(distance):
         conn = DBConnect.get_connection()
 
         result = []
 
         cursor = conn.cursor(dictionary=True)
-        query = "SELECT * FROM flights"
-        cursor.execute(query)
+        query = "SELECT * FROM flights WHERE DISTANCE>=%s"
+        cursor.execute(query,(distance,))
 
         for row in cursor:
             result.append(Flights(**row))

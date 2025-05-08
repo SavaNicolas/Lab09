@@ -25,7 +25,7 @@ class Controller:
         self._model.buildGraph(distance)
 
         self._view.txt_result.controls.append(ft.Text("grafo correttamente creato"))
-        self._view.txt_result.controls.append(ft.Text(f"grafo contiene: {self._model.getNumNodi()} nodi"))
+        self._view.txt_result.controls.append(ft.Text(f"grafo contiene: {self._model.getNumNodiCoinvolti()} nodi"))
         self._view.txt_result.controls.append(ft.Text(f"grafo contiene: {self._model.getNumArchi()} archi"))
 
         self._view.txt_result.controls.append(ft.Text(f"Archi:"))
